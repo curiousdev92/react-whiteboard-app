@@ -1,7 +1,12 @@
-.board {
+.whiteboard {
   &__container {
     --zoom: 1;
     --scale: calc(1 / var(--zoom));
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
   }
   &__svg {
     background-color: $white;
@@ -16,5 +21,16 @@
       stroke-linecap: round;
       pointer-events: none;
     }
+  }
+  &__tools {
+    position: fixed;
+    left: 4px;
+    top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
+    border-radius: 14px;
   }
 }

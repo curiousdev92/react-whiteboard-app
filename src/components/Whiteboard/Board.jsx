@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { getPointFromEvent } from "../../helpers/SVG";
 
 const Board = () => {
@@ -24,13 +24,13 @@ const Board = () => {
     setPointerOrigin({ x, y });
     setAction("none");
   };
-  function pan(dx, dy) {
+  const pan = (dx, dy) => {
     let curMatrix = transformMatrix.current;
     curMatrix[4] += dx;
     curMatrix[5] += dy;
     transformMatrix.current = curMatrix;
-  }
-  function zoom(scale) {
+  };
+  const zoom = (scale) => {
     for (let i = 0; i < 4; i++) {
       transformMatrix.current[i] *= scale;
     }
@@ -39,26 +39,23 @@ const Board = () => {
 
     let newMatrix = "matrix(" + transformMatrix.join(" ") + ")";
     matrixGroup.setAttributeNS(null, "transform", newMatrix);
-  }
+  };
 
   return (
-    <div className="board__container">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        id="svg"
-        version="1.1"
-        className="board__svg"
-        width={500}
-        height={500}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerOut={handlePointerUp}
-        ref={svgRef}
-        style={{ transform: `matrix(${transformMatrix.current})` }}
-      ></svg>
-    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      id="svg"
+      version="1.1"
+      className="whiteboard__svg"
+      width={500}
+      height={500}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerOut={handlePointerUp}
+      ref={svgRef}
+      style={{ transform: `matrix(${transformMatrix.current})` }}
+    ></svg>
   );
 };
-
 export default Board;
